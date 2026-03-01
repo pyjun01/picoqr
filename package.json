@@ -1,0 +1,22 @@
+{
+  "name": "tiny-qr",
+  "version": "0.1.0",
+  "description": "Ultra-lightweight zero-dependency QR code generator",
+  "type": "module",
+  "exports": "./src/index.mjs",
+  "bin": {
+    "tiny-qr": "./bin/tiny-qr.mjs"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "test": "node --test test/**/*.test.mjs"
+  },
+  "files": [
+    "src/",
+    "bin/"
+  ],
+  "license": "MIT",
+  "keywords": ["qr", "qrcode", "generator", "lightweight", "zero-dependency", "bmp"]
+}
