@@ -4,39 +4,20 @@ import { rm, readFile, writeFile } from 'node:fs/promises';
 // Clean dist/
 await rm('dist', { recursive: true, force: true });
 
-const shared = {
+// ESM library bundle
+await build({
   bundle: true,
   platform: 'node',
   target: 'node20',
   minify: true,
-};
+  entryPoints: ['src/index.mjs'],
+  outfile: 'dist/index.mjs',
+  format: 'esm',
+});
 
-await Promise.all([
-  // ESM bundle
-  build({
-    ...shared,
-    entryPoints: ['src/index.mjs'],
-    outfile: 'dist/index.mjs',
-    format: 'esm',
-  }),
-  // CJS bundle
-  build({
-    ...shared,
-    entryPoints: ['src/index.mjs'],
-    outfile: 'dist/index.cjs',
-    format: 'cjs',
-  }),
-  // CLI bundle (ESM, no banner — shebang added after build)
-  build({
-    ...shared,
-    entryPoints: ['bin/picoqr.mjs'],
-    outfile: 'dist/cli.mjs',
-    format: 'esm',
-  }),
-]);
+// CLI — thin wrapper that imports from the bundled library
+const cliSrc = await readFile('bin/picoqr.mjs', 'utf8');
+const cliOut = cliSrc.replace('../src/index.mjs', './index.mjs');
+await writeFile('dist/cli.mjs', cliOut);
 
-// Replace source shebang with a clean one (esbuild preserves the original)
-const cli = await readFile('dist/cli.mjs', 'utf8');
-await writeFile('dist/cli.mjs', '#!/usr/bin/env node\n' + cli.replace(/^#!.*\n/, ''));
-
-console.log('Build complete: dist/index.mjs, dist/index.cjs, dist/cli.mjs');
+console.log('Build complete: dist/index.mjs, dist/cli.mjs');

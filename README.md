@@ -2,7 +2,7 @@
 
 Ultra-lightweight, zero-dependency QR code generator for Node.js.
 
-**6.8 kB published** / 4.2 kB gzipped (library only) — built to embed into size-sensitive environments where every kilobyte counts.
+**6.6 kB published** (tarball) — built to embed into size-sensitive environments where every kilobyte counts.
 
 ## Use Cases
 
@@ -90,7 +90,7 @@ Options:
 |---------|------|-------------|
 | [qrcode](https://www.npmjs.com/package/qrcode) | 41 | ~135 kB |
 | [@paulmillr/qr](https://github.com/paulmillr/qr) | 0 | ~35 kB |
-| **picoqr** | **0** | **~6.8 kB** |
+| **picoqr** | **0** | **~6.6 kB** |
 
 ## QR Versions
 
