@@ -5,7 +5,7 @@ import { toFile } from '../src/index.mjs';
 const args = process.argv.slice(2);
 
 if (args.includes('--help') || args.includes('-h')) {
-  console.log(`Usage: tiny-qr <text> [options]
+  console.log(`Usage: picoqr <text> [options]
 
 Options:
   -o, --output <file>   Output BMP file path (default: qr.bmp)

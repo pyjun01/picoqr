@@ -1,4 +1,4 @@
-# tiny-qr
+# picoqr
 
 Ultra-lightweight, zero-dependency QR code generator for Node.js.
 
@@ -16,14 +16,14 @@ Ultra-lightweight, zero-dependency QR code generator for Node.js.
 
 Most QR libraries depend on canvas, libpng, or sharp for image output. These bring native bindings, platform-specific binaries, and painful installs on constrained environments.
 
-BMP is an uncompressed bitmap format — encoding it is just raw pixel math. This is what keeps tiny-qr at zero dependencies. And for thermal printers (ESC/POS), raw bitmap is the native input format, making BMP the shortest path from QR matrix to printed output.
+BMP is an uncompressed bitmap format — encoding it is just raw pixel math. This is what keeps picoqr at zero dependencies. And for thermal printers (ESC/POS), raw bitmap is the native input format, making BMP the shortest path from QR matrix to printed output.
 
 If you need SVG or PNG, use `generate()` to get the raw boolean matrix and render it yourself.
 
 ## Install
 
 ```bash
-npm install tiny-qr
+npm install picoqr
 ```
 
 ## API
@@ -33,7 +33,7 @@ npm install tiny-qr
 Returns a QR code as a 2D boolean matrix (`true` = dark module).
 
 ```js
-import { generate } from 'tiny-qr';
+import { generate } from 'picoqr';
 
 const matrix = generate('https://example.com');
 // matrix[row][col] === true means dark module
@@ -44,7 +44,7 @@ const matrix = generate('https://example.com');
 Returns a QR code as a BMP image `Buffer`.
 
 ```js
-import { toBuffer } from 'tiny-qr';
+import { toBuffer } from 'picoqr';
 
 const bmp = toBuffer('https://example.com', { scale: 8, margin: 2 });
 ```
@@ -54,7 +54,7 @@ const bmp = toBuffer('https://example.com', { scale: 8, margin: 2 });
 Writes a QR code BMP image to disk.
 
 ```js
-import { toFile } from 'tiny-qr';
+import { toFile } from 'picoqr';
 
 await toFile('https://example.com', 'qr.bmp', { ecLevel: 'M' });
 ```
@@ -70,11 +70,11 @@ await toFile('https://example.com', 'qr.bmp', { ecLevel: 'M' });
 ## CLI
 
 ```bash
-npx tiny-qr "https://example.com" -o code.bmp
+npx picoqr "https://example.com" -o code.bmp
 ```
 
 ```
-Usage: tiny-qr <text> [options]
+Usage: picoqr <text> [options]
 
 Options:
   -o, --output <file>   Output BMP file path (default: qr.bmp)
@@ -90,7 +90,7 @@ Options:
 |---------|------|-------------|
 | [qrcode](https://www.npmjs.com/package/qrcode) | 41 | ~135 kB |
 | [@paulmillr/qr](https://github.com/paulmillr/qr) | 0 | ~35 kB |
-| **tiny-qr** | **0** | **~6.8 kB** |
+| **picoqr** | **0** | **~6.8 kB** |
 
 ## QR Versions
 

@@ -32,7 +32,7 @@ describe('toBuffer', () => {
 });
 
 describe('toFile', () => {
-  const testPath = '/tmp/tiny-qr-test-output.bmp';
+  const testPath = '/tmp/picoqr-test-output.bmp';
 
   it('should write a BMP file', async () => {
     await toFile('HELLO', testPath);

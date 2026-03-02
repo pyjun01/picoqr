@@ -29,7 +29,7 @@ await Promise.all([
   // CLI bundle (ESM, no banner — shebang added after build)
   build({
     ...shared,
-    entryPoints: ['bin/tiny-qr.mjs'],
+    entryPoints: ['bin/picoqr.mjs'],
     outfile: 'dist/cli.mjs',
     format: 'esm',
   }),

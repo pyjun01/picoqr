@@ -1,5 +1,5 @@
 {
-  "name": "tiny-qr",
+  "name": "picoqr",
   "version": "0.1.0",
   "description": "Ultra-lightweight zero-dependency QR code generator",
   "type": "module",
@@ -12,7 +12,7 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "bin": {
-    "tiny-qr": "./dist/cli.mjs"
+    "picoqr": "./dist/cli.mjs"
   },
   "engines": {
     "node": ">=20.0.0"

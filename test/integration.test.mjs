@@ -29,7 +29,7 @@ describe('integration', () => {
   });
 
   it('should generate valid BMP file', async () => {
-    const path = '/tmp/tiny-qr-integration.bmp';
+    const path = '/tmp/picoqr-integration.bmp';
     await toFile('HELLO', path, { scale: 10, margin: 4 });
     const data = readFileSync(path);
     assert.equal(data[0], 0x42);

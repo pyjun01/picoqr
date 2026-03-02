@@ -5,7 +5,7 @@ import { toBuffer } from '../src/index.mjs';
 
 /**
  * Convert a 24-bit BGR bottom-up BMP buffer to an RGBA Uint8ClampedArray.
- * Only handles the exact BMP format produced by tiny-qr (no compression, 24bpp).
+ * Only handles the exact BMP format produced by picoqr (no compression, 24bpp).
  *
  * @param {Buffer} bmp - BMP file buffer
  * @returns {{ data: Uint8ClampedArray, width: number, height: number }}
