@@ -131,7 +131,7 @@ function computeTotalBits(text, mode, version) {
 export function selectVersion(text, ecLevel) {
   const mode = detectMode(text);
 
-  for (let v = 1; v <= 10; v++) {
+  for (let v = 1; v <= 15; v++) {
     const totalBits = computeTotalBits(text, mode, v);
     const dataCodewords = DATA_CODEWORDS_TABLE[v][ecLevel];
     const availableBits = dataCodewords * 8;
@@ -141,7 +141,7 @@ export function selectVersion(text, ecLevel) {
     }
   }
 
-  throw new Error('Data too large for versions 1-10');
+  throw new Error('Data too large for versions 1-15');
 }
 
 /**

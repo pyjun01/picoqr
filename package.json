@@ -3,20 +3,39 @@
   "version": "0.1.0",
   "description": "Ultra-lightweight zero-dependency QR code generator",
   "type": "module",
-  "exports": "./src/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
   "bin": {
-    "tiny-qr": "./bin/tiny-qr.mjs"
+    "tiny-qr": "./dist/cli.mjs"
   },
   "engines": {
     "node": ">=20.0.0"
   },
   "scripts": {
-    "test": "node --test test/**/*.test.mjs"
+    "build": "node scripts/build.mjs",
+    "test": "node --test test/**/*.test.mjs",
+    "prepublishOnly": "npm run build"
   },
   "files": [
-    "src/",
-    "bin/"
+    "dist/"
   ],
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "jsqr": "^1.4.0"
+  },
   "license": "MIT",
-  "keywords": ["qr", "qrcode", "generator", "lightweight", "zero-dependency", "bmp"]
+  "keywords": [
+    "qr",
+    "qrcode",
+    "generator",
+    "lightweight",
+    "zero-dependency",
+    "bmp"
+  ]
 }

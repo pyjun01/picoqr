@@ -296,7 +296,7 @@ function reserveFormatInfo(matrix, reserved, size) {
 }
 
 /**
- * Reserve the modules used by version information (v7-10 only).
+ * Reserve the modules used by version information (v7+ only).
  * @param {boolean[][]} reserved
  * @param {number} size
  * @param {number} version
@@ -494,7 +494,7 @@ function writeFormatInfo(matrix, size, ecLevel, maskIndex) {
 // ---------------------------------------------------------------------------
 
 /**
- * Write version information bits (v7-10 only).
+ * Write version information bits (v7+ only).
  * @param {boolean[][]} matrix
  * @param {number} size
  * @param {number} version
@@ -505,7 +505,8 @@ function writeVersionInfo(matrix, size, version) {
   const bits = VERSION_INFO_STRINGS[version];
 
   for (let i = 0; i < 18; i++) {
-    const dark = bits[i] === '1';
+    // VERSION_INFO_STRINGS are MSB-first, but placement position 0 expects bit 0 (LSB)
+    const dark = bits[17 - i] === '1';
 
     // Copy 1: bottom-left of top-right finder area
     const r1 = Math.floor(i / 3);
@@ -726,7 +727,7 @@ export function generateMatrix(text, options) {
     // Write format info
     writeFormatInfo(candidate, size, ecLevel, maskIndex);
 
-    // Write version info (v7-10)
+    // Write version info (v7+)
     writeVersionInfo(candidate, size, version);
 
     // Calculate penalty

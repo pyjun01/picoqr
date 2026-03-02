@@ -12,14 +12,14 @@ import {
 } from '../src/tables.mjs';
 
 describe('tables', () => {
-  it('should have entries for versions 1-10', () => {
-    for (let v = 1; v <= 10; v++) {
+  it('should have entries for versions 1-15', () => {
+    for (let v = 1; v <= 15; v++) {
       assert.ok(EC_CODEWORDS_TABLE[v], `Missing EC table for version ${v}`);
       assert.ok(DATA_CODEWORDS_TABLE[v], `Missing data table for version ${v}`);
     }
   });
 
-  it('should have alignment positions for versions 2-10', () => {
+  it('should have alignment positions for versions 2-15', () => {
     assert.equal(ALIGNMENT_POSITIONS[1], undefined);
     assert.deepEqual(ALIGNMENT_POSITIONS[2], [6, 18]);
     assert.deepEqual(ALIGNMENT_POSITIONS[7], [6, 22, 38]);
@@ -30,7 +30,7 @@ describe('tables', () => {
     assert.equal(FORMAT_INFO_STRINGS[0].length, 15);
   });
 
-  it('should have version info for versions 7-10', () => {
+  it('should have version info for versions 7-15', () => {
     assert.equal(VERSION_INFO_STRINGS[7].length, 18);
     assert.equal(VERSION_INFO_STRINGS[6], undefined);
   });
@@ -69,7 +69,7 @@ describe('tables', () => {
   });
 
   it('should have data + EC = total codewords for each version/level', () => {
-    for (let v = 1; v <= 10; v++) {
+    for (let v = 1; v <= 15; v++) {
       for (const level of ['L', 'M', 'Q', 'H']) {
         const dataCount = DATA_CODEWORDS_TABLE[v][level];
         const ecInfo = EC_CODEWORDS_TABLE[v][level];

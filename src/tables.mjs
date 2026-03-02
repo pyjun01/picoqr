@@ -1,5 +1,5 @@
 /**
- * QR Code specification lookup tables for versions 1-10.
+ * QR Code specification lookup tables for versions 1-15.
  *
  * All data is derived from ISO/IEC 18004 (QR Code specification).
  * This module provides the core reference tables needed for QR code
@@ -25,6 +25,11 @@ export const TOTAL_CODEWORDS = {
   8: 242,
   9: 292,
   10: 346,
+  11: 404,
+  12: 466,
+  13: 532,
+  14: 581,
+  15: 655,
 };
 
 /**
@@ -97,6 +102,36 @@ export const EC_CODEWORDS_TABLE = {
     Q: { ecPerBlock: 24, blocks: [{ count: 6, dataCodewords: 19 }, { count: 2, dataCodewords: 20 }] },
     H: { ecPerBlock: 28, blocks: [{ count: 6, dataCodewords: 15 }, { count: 2, dataCodewords: 16 }] },
   },
+  11: {
+    L: { ecPerBlock: 20, blocks: [{ count: 4, dataCodewords: 81 }] },
+    M: { ecPerBlock: 30, blocks: [{ count: 1, dataCodewords: 50 }, { count: 4, dataCodewords: 51 }] },
+    Q: { ecPerBlock: 28, blocks: [{ count: 4, dataCodewords: 22 }, { count: 4, dataCodewords: 23 }] },
+    H: { ecPerBlock: 24, blocks: [{ count: 3, dataCodewords: 12 }, { count: 8, dataCodewords: 13 }] },
+  },
+  12: {
+    L: { ecPerBlock: 24, blocks: [{ count: 2, dataCodewords: 92 }, { count: 2, dataCodewords: 93 }] },
+    M: { ecPerBlock: 22, blocks: [{ count: 6, dataCodewords: 36 }, { count: 2, dataCodewords: 37 }] },
+    Q: { ecPerBlock: 26, blocks: [{ count: 4, dataCodewords: 20 }, { count: 6, dataCodewords: 21 }] },
+    H: { ecPerBlock: 28, blocks: [{ count: 7, dataCodewords: 14 }, { count: 4, dataCodewords: 15 }] },
+  },
+  13: {
+    L: { ecPerBlock: 26, blocks: [{ count: 4, dataCodewords: 107 }] },
+    M: { ecPerBlock: 22, blocks: [{ count: 8, dataCodewords: 37 }, { count: 1, dataCodewords: 38 }] },
+    Q: { ecPerBlock: 24, blocks: [{ count: 8, dataCodewords: 20 }, { count: 4, dataCodewords: 21 }] },
+    H: { ecPerBlock: 22, blocks: [{ count: 12, dataCodewords: 11 }, { count: 4, dataCodewords: 12 }] },
+  },
+  14: {
+    L: { ecPerBlock: 30, blocks: [{ count: 3, dataCodewords: 115 }, { count: 1, dataCodewords: 116 }] },
+    M: { ecPerBlock: 24, blocks: [{ count: 4, dataCodewords: 40 }, { count: 5, dataCodewords: 41 }] },
+    Q: { ecPerBlock: 20, blocks: [{ count: 11, dataCodewords: 16 }, { count: 5, dataCodewords: 17 }] },
+    H: { ecPerBlock: 24, blocks: [{ count: 11, dataCodewords: 12 }, { count: 5, dataCodewords: 13 }] },
+  },
+  15: {
+    L: { ecPerBlock: 22, blocks: [{ count: 5, dataCodewords: 87 }, { count: 1, dataCodewords: 88 }] },
+    M: { ecPerBlock: 24, blocks: [{ count: 5, dataCodewords: 41 }, { count: 5, dataCodewords: 42 }] },
+    Q: { ecPerBlock: 30, blocks: [{ count: 5, dataCodewords: 24 }, { count: 7, dataCodewords: 25 }] },
+    H: { ecPerBlock: 24, blocks: [{ count: 11, dataCodewords: 12 }, { count: 7, dataCodewords: 13 }] },
+  },
 };
 
 /**
@@ -119,13 +154,18 @@ export const DATA_CODEWORDS_TABLE = {
   8: { L: 194, M: 154, Q: 110, H: 86 },
   9: { L: 232, M: 182, Q: 132, H: 100 },
   10: { L: 274, M: 216, Q: 154, H: 122 },
+  11: { L: 324, M: 254, Q: 180, H: 140 },
+  12: { L: 370, M: 290, Q: 206, H: 158 },
+  13: { L: 428, M: 334, Q: 244, H: 180 },
+  14: { L: 461, M: 365, Q: 261, H: 197 },
+  15: { L: 523, M: 415, Q: 295, H: 223 },
 };
 
 /**
  * Alignment pattern center positions per version.
  *
  * Version 1 has no alignment patterns. Versions 2-6 have one alignment
- * pattern (2 coordinates), versions 7-10 have two (3 coordinates).
+ * pattern (2 coordinates), versions 7+ have two or more (3+ coordinates).
  *
  * @type {Object<number, number[]>}
  */
@@ -139,6 +179,11 @@ export const ALIGNMENT_POSITIONS = {
   8: [6, 24, 42],
   9: [6, 26, 46],
   10: [6, 28, 50],
+  11: [6, 30, 54],
+  12: [6, 32, 58],
+  13: [6, 34, 62],
+  14: [6, 26, 46, 66],
+  15: [6, 26, 48, 70],
 };
 
 /**
@@ -189,7 +234,7 @@ export const FORMAT_INFO_STRINGS = [
 ];
 
 /**
- * Version information bit strings (18-bit) for versions 7-10.
+ * Version information bit strings (18-bit) for versions 7+.
  *
  * Versions below 7 do not have version information.
  *
@@ -200,6 +245,11 @@ export const VERSION_INFO_STRINGS = {
   8: '001000010110111100',
   9: '001001101010011001',
   10: '001010010011010011',
+  11: '001011101111110110',
+  12: '001100011101100010',
+  13: '001101100001000111',
+  14: '001110011000001101',
+  15: '001111100100101000',
 };
 
 /**
@@ -230,8 +280,8 @@ for (let i = 0; i < specials.length; i++) {
  * Character count indicator bit lengths per version and encoding mode.
  *
  * CHAR_COUNT_BITS[version] returns { numeric, alphanumeric, byte }.
- * Versions 1-9 share the same bit lengths; version 10 uses larger values
- * (as it falls in the 10-26 version range per the QR spec).
+ * Versions 1-9 share the same bit lengths; versions 10-15 use larger values
+ * (as they fall in the 10-26 version range per the QR spec).
  *
  * @type {Object<number, { numeric: number, alphanumeric: number, byte: number }>}
  */
@@ -241,5 +291,7 @@ export const CHAR_COUNT_BITS = {};
 for (let v = 1; v <= 9; v++) {
   CHAR_COUNT_BITS[v] = { numeric: 10, alphanumeric: 9, byte: 8 };
 }
-// Version 10: falls in the 10-26 range
-CHAR_COUNT_BITS[10] = { numeric: 12, alphanumeric: 11, byte: 16 };
+// Versions 10-15: fall in the 10-26 range
+for (let v = 10; v <= 15; v++) {
+  CHAR_COUNT_BITS[v] = { numeric: 12, alphanumeric: 11, byte: 16 };
+}
