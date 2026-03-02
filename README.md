@@ -98,7 +98,7 @@ Supports versions 1–15, covering up to **523 characters** (EC level L). Handle
 
 ## Requirements
 
-Node.js >= 20.0.0
+Node.js >= 20.0.0 (ESM only — no CommonJS `require()` support)
 
 ## License
 
